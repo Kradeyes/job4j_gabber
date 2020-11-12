@@ -44,7 +44,8 @@ public class AlertRabbit {
     }
 
     public static Connection createConnection() {
-    try (InputStream in = AlertRabbit.class.getClassLoader().getResourceAsStream("rabbit.properties")) {
+    try (InputStream in = AlertRabbit.class
+            .getClassLoader().getResourceAsStream("rabbit.properties")) {
         Properties config = new Properties();
         config.load(in);
         Class.forName(config.getProperty("jdbc.driver"));
@@ -60,7 +61,8 @@ public class AlertRabbit {
         @Override
         public void execute(JobExecutionContext context) {
             System.out.println("Rabbit runs here ...");
-            Connection connection = (Connection) context.getJobDetail().getJobDataMap().get("database");
+            Connection connection = (Connection)
+                    context.getJobDetail().getJobDataMap().get("database");
             String insert = "insert into job.rabbit(created) values(?)";
             try (final PreparedStatement statement = connection.prepareStatement(insert)) {
                 statement.setDate(1, new java.sql.Date(new Date().getTime()));
@@ -71,9 +73,9 @@ public class AlertRabbit {
         }
     }
 
-
     private static int getInterval() {
-        try (InputStream in = AlertRabbit.class.getClassLoader().getResourceAsStream("rabbit.properties")) {
+        try (InputStream in = AlertRabbit.class.getClassLoader()
+                .getResourceAsStream("rabbit.properties")) {
             Properties config = new Properties();
             config.load(in);
             return Integer.parseInt(config.getProperty("rabbit.interval"));
