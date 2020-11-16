@@ -19,8 +19,14 @@ public class AlertRabbit {
     private static final Logger LOG = LoggerFactory.getLogger(AlertRabbit.class.getName());
 
     public static void main(String[] args) {
-        try {
-            Connection connection = createConnection();
+        try (InputStream in = AlertRabbit.class
+                .getClassLoader().getResourceAsStream("rabbit.properties")) {
+            Properties config = new Properties();
+            config.load(in);
+            Class.forName(config.getProperty("jdbc.driver"));
+            Connection connection = DriverManager.getConnection(config.getProperty("jdbc.url"),
+                    config.getProperty("jdbc.username"),
+                    config.getProperty("jdbc.password"));
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDataMap data = new JobDataMap();
@@ -41,20 +47,6 @@ public class AlertRabbit {
         } catch (Exception e) {
             LOG.error("Exception ", e);
         }
-    }
-
-    public static Connection createConnection() {
-    try (InputStream in = AlertRabbit.class
-            .getClassLoader().getResourceAsStream("rabbit.properties")) {
-        Properties config = new Properties();
-        config.load(in);
-        Class.forName(config.getProperty("jdbc.driver"));
-        return DriverManager.getConnection(config.getProperty("jdbc.url"),
-                                           config.getProperty("jdbc.username"),
-                                           config.getProperty("jdbc.password"));
-        } catch (Exception e) {
-        throw new IllegalArgumentException();
-      }
     }
 
     public static class Rabbit implements Job {
