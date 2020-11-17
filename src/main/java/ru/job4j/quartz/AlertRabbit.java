@@ -24,9 +24,9 @@ public class AlertRabbit {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("jdbc.driver"));
-            Connection connection = DriverManager.getConnection(config.getProperty("jdbc.url"),
+            try (Connection connection = DriverManager.getConnection(config.getProperty("jdbc.url"),
                     config.getProperty("jdbc.username"),
-                    config.getProperty("jdbc.password"));
+                    config.getProperty("jdbc.password"))) {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDataMap data = new JobDataMap();
@@ -44,6 +44,7 @@ public class AlertRabbit {
             scheduler.scheduleJob(job, trigger);
             Thread.sleep(10000);
             scheduler.shutdown();
+            }
         } catch (Exception e) {
             LOG.error("Exception ", e);
         }
