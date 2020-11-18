@@ -62,4 +62,14 @@ public class Post {
         this.author = author;
     }
 
+    @Override
+    public String toString() {
+        return "Post {" + System.lineSeparator()
+                + "author = " + author + System.lineSeparator()
+                + "creationTime = " + creationTime + System.lineSeparator()
+                + "title = '" + title +  System.lineSeparator()
+                + "description = '" + description  + System.lineSeparator()
+                + "url = '" + url + System.lineSeparator()
+                + '}';
+    }
 }
