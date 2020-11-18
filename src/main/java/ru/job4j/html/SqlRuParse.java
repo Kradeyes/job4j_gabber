@@ -73,6 +73,7 @@ public class SqlRuParse {
         String[] timeField = msg.getElementsByAttributeValue("class", "msgFooter")
                 .text().split(" \\[");
         LocalDate date = changeData(timeField[0]);
+
         System.out.println(date);
     }
 }
