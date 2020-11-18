@@ -6,16 +6,19 @@ public class Post {
     private LocalDate creationTime;
     private String url;
     private String title;
+    private String author;
     private String description;
 
     public Post() {
 
     }
 
-    public Post(LocalDate creationTime, String url, String title, String description) {
+    public Post(LocalDate creationTime, String url, String title, String author,
+                String description) {
         this.creationTime = creationTime;
         this.url = url;
         this.title = title;
+        this.author = author;
         this.description = description;
     }
 
@@ -50,4 +53,13 @@ public class Post {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
 }

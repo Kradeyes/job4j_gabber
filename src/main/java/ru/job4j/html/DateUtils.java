@@ -14,7 +14,7 @@ public class DateUtils {
             entry("фев", "февр."),
             entry("мар", "мар."),
             entry("апр", "апр."),
-            entry("май", "мая."),
+            entry("май", "мая"),
             entry("июн", "июн."),
             entry("июл", "июл."),
             entry("авг", "авг."),
