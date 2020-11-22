@@ -39,6 +39,11 @@ public class SqlRuParse implements Parse {
         return urls;
     }
 
+    @Override
+    public List<String> gettingUrl() {
+        return url;
+    }
+
     public String getUrl(List<String> url) {
         String rsl = null;
         for (String x: url) {
