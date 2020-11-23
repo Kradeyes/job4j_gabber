@@ -76,15 +76,13 @@ public class PsqlStore implements Store, AutoCloseable {
     }
 
     public static Post postInfo(ResultSet resultSet) throws Exception {
-        if (resultSet.next()) {
-            return new Post(resultSet.getDate(6).toLocalDate(),
-                    resultSet.getString(5),
-                    resultSet.getString(2),
-                    resultSet.getString(3),
-                    resultSet.getString(4));
-        }
-        throw new IllegalArgumentException();
+        return new Post(resultSet.getDate(6).toLocalDate(),
+                resultSet.getString(5),
+                resultSet.getString(2),
+                resultSet.getString(3),
+                resultSet.getString(4));
     }
+
 
     public static void main(String[] args) {
        Properties properties = new Properties();
