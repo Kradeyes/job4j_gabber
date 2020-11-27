@@ -83,7 +83,6 @@ public class PsqlStore implements Store, AutoCloseable {
                 resultSet.getString(4));
     }
 
-
     public static void main(String[] args) {
        Properties properties = new Properties();
        try (InputStream in = PsqlStore.class.getClassLoader()

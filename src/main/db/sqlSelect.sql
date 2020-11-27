@@ -28,7 +28,7 @@ insert into person values (5,'Katya',5);
 insert into person values (6,'Sasha',5);
 
 select p.name as person, c.name as company from person p left join company c
-on c.id = p.company_id where p.company_id = 5;
+on c.id = p.company_id where p.company_id != 5;
 
 select c.name, count(p.company_id) from company c left join person p
 on c.id = p.company_id group by c.name order by count(p.company_id) DESC LIMIT 1;
