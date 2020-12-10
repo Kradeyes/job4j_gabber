@@ -40,6 +40,15 @@ update validate set  status = 'No' where id=4;
 update validate set  status = 'Yes' where id=5;
 
 
-select count(id) as Applications, count(distinct user_id) as Users from validate;
+select meeting.name, COUNT(validate.status) AS countOfPpl
+from validate join meeting on validate.meeting_id = meeting.id
+where validate.status = 'Yes'
+group by meeting.name, validate.status;
 
-select name from validate right outer join meeting m on m.id = validate.meeting_id where user_id is null;
+select withoutrequest  from (select meeting.name as withoutrequest
+from meeting left outer join validate on meeting.id = validate.meeting_id
+group by meeting.name) as first
+left outer join (select meeting.name as withrequest
+from meeting left outer join validate on meeting.id = validate.meeting_id
+where validate.status = 'Yes' group by meeting.name) as second
+on withoutrequest=withrequest where withrequest is null;
