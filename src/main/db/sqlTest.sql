@@ -43,7 +43,7 @@ update validate set  status = 'Yes' where id=5;
 select meeting.name, COUNT(validate.status) AS countOfPpl
 from validate join meeting on validate.meeting_id = meeting.id
 where validate.status = 'Yes'
-group by meeting.name, validate.status;
+group by meeting.name;
 
 select withoutrequest  from (select meeting.name as withoutrequest
 from meeting left outer join validate on meeting.id = validate.meeting_id
@@ -52,3 +52,7 @@ left outer join (select meeting.name as withrequest
 from meeting left outer join validate on meeting.id = validate.meeting_id
 where validate.status = 'Yes' group by meeting.name) as second
 on withoutrequest=withrequest where withrequest is null;
+
+select meeting.name from meeting join validate v on meeting.id = v.meeting_id where status = 'No'
+    except
+select meeting.name from meeting join validate v on meeting.id = v.meeting_id where status = 'Yes';
